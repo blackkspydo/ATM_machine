@@ -197,12 +197,12 @@ public class Main {
 	private static void bounceCheck() {
 		Scanner sc = new Scanner(System.in);
 		withdrawAmount = sc.nextInt();
-		if (balance < withdrawAmount)
+		if (balance < withdrawAmount) {
 			System.out.println("Sorry, You don't have enough Balance.");
-		System.out.println("Your current balance is Rs." + balance);
-		System.out.println("Please enter amount less than or equal to your current balance");
-		bounceCheck();
-		sc.close();
+			System.out.println("Your current balance is Rs." + balance);
+			System.out.println("Please enter amount less than or equal to your current balance");
+			bounceCheck();
+		}
 	}
 
 	private static void withdrawPin() {
