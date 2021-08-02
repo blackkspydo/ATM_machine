@@ -195,7 +195,7 @@ public class Main {
 		System.out.print("Enter amount to withdraw: ");
 		bounceCheck();
 		System.out.print("Enter your pin: ");
-		cardBlockMsg();
+
 
 		withdrawPin();
 
@@ -214,6 +214,7 @@ public class Main {
 
 	private static void withdrawPin() {
 		Scanner sc = new Scanner(System.in);
+		cardBlockMsg();
 		int userPin = sc.nextInt();
 		if (pinAuth(pin, userPin)) {
 			balance -= withdrawAmount;
