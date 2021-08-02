@@ -24,8 +24,10 @@ public class Main {
 		System.out.println("**************************");
 		System.out.println("* Welcome to BS bank atm *");
 		System.out.println("**************************");
-		System.out.print("\nPlease insert your card and enter your atm pin.");
+		System.out.print("\nPlease insert your card and enter your atm pin.(default:1234) ");
 		logInPin();
+		timeDelay(800);
+
 	}
 
 	private static void logInPin() {
@@ -109,6 +111,7 @@ public class Main {
 	private static void depositPin() {
 		Scanner sc = new Scanner(System.in);
 		int userPin = sc.nextInt();
+		cardBlockMsg();
 		if (pinAuth(pin, userPin)) {
 			balance += depositAmount;
 			timeDelay(1000);
@@ -117,7 +120,8 @@ public class Main {
 			System.out.println("Your new balance is " + balance);
 		} else {
 			timeDelay(900);
-			System.out.println("Invalid pin. Try again");
+			count++;
+			System.out.println("Invalid pin. Try again ."+(3-count)+" attempt left");
 			depositPin();
 		}
 		timeDelay(1000);
@@ -154,8 +158,10 @@ public class Main {
 		System.out.print("Please enter old pin:");
 		Scanner sc = new Scanner(System.in);
 		int userPin = sc.nextInt();
+		cardBlockMsg();
 		if (!pinAuth(pin, userPin)) {
-			System.out.println("Invalid pin");
+			System.out.println("Invalid pin. Try again. "+(3-count)+" attempt left");
+			count++;
 			changePin();
 		}
 		System.out.print("Please enter new pin:");
@@ -189,6 +195,7 @@ public class Main {
 		System.out.print("Enter amount to withdraw: ");
 		bounceCheck();
 		System.out.print("Enter your pin: ");
+		cardBlockMsg();
 
 		withdrawPin();
 
@@ -216,7 +223,8 @@ public class Main {
 			System.out.println("Your new balance is " + balance);
 		} else {
 			timeDelay(900);
-			System.out.println("Invalid pin. Try again");
+			count++;
+			System.out.println("Invalid pin. Try again "+(3-count)+" attempt left");
 			withdrawPin();
 		}
 		timeDelay(1000);
@@ -228,10 +236,24 @@ public class Main {
 	//**********************************************************************************   First Log in
 	private static void firstLogin() {
 		first = false;
-		System.out.println("You seem to have log in for the first time please deposit your money.");
+		System.out.println("You seem to have log in for the first time\n* Please setup your atm pin\n* Please deposit your money.\n");
+		timeDelay(700);
+		setPin();
+		System.out.println("\n");
 		timeDelay(500);
 		deposit();
 	}
-
+	private static void setPin(){
+		System.out.print("Enter new pin for you: ");
+		Scanner sc = new Scanner(System.in);
+		pin = sc.nextInt();
+	}
+	private static void cardBlockMsg(){
+		if(count>=3){
+			System.out.println("Too many invalid pin attempts. Congratulations, Your card is blocked.");
+			timeDelay(1000);
+			System.exit(0);
+		}
+	}
 }
 
